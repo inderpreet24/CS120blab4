@@ -20,7 +20,7 @@
        
        break;
       
-       case LED_ON:
+       case LED_OFF:
        if(PINA == 0x01){
         led = LED_ON;
        }
@@ -30,7 +30,7 @@
      
      break;
        
-      case LED_OFF:
+      case LED_ON:
       if(PINA == 0x01){
       led = LED_OFF;
      }
@@ -49,10 +49,10 @@
     break;
     }
     case LED_OFF:
-    PORTB = 0x02;
+    PORTB = 0x01;
     break;
     case LED_ON:
-    PORTB = 0x01;
+    PORTB = 0x02;
     break;
     default:
    {
