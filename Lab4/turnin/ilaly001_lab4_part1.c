@@ -48,7 +48,7 @@
     { 
     break;
     }
-    case LED_OFF 
+    case LED_OFF:
     PORTB = 0x02;
     break;
     case LED_ON:
