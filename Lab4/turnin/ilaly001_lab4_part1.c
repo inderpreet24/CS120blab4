@@ -12,39 +12,52 @@
 #include "simAVRHeader.h"
 #endif
     
-   enum LED{LED_ON, LED_OFF} led;
-    void State(){
+   enum LED{ Init, LED_ON, LED_OFF} led;
+    void Button(){
        switch(led){
-         case LED_OFF:
-         if(PINA){
-         led = LED_OFF;
-        
-       }
-       break;
-       case LED_ON:
-       if(!PINA){
-        led = LED_ON;
+       case Init:
+       led = LED_OFF;
        
-      }
-      break;
-      else{
+       break;
+      
+       case LED_ON:
+       if(PINA == 0x01){
+        led = LED_ON;
+       }
+       else{
+       led = LED_OFF;
+     } 
+     
+     break;
+       
+      case LED_OFF:
+      if(PINA == 0x01){
       led = LED_OFF;
      }
+     else{
+     led = LED_ON;
+    }   
     break;
-     default:
-      led = LED;
+     
+     default:{
       break;
+    }
 }
     switch(led){
-    case LED_OFF 
-    PORTB = 0x01;
+    case Init:
+    { 
     break;
-    case LED_ON:
+    }
+    case LED_OFF 
     PORTB = 0x02;
     break;
-    default:
+    case LED_ON:
     PORTB = 0x01;
     break;
+    default:
+   {
+    break;
+    }
 }
 }
 int main(void) {
@@ -54,7 +67,7 @@ int main(void) {
     DDRB = 0xFF; PORTB = 0x00;
     /* Insert your solution below */
     while (1) {
-   State();          
+   Button();          
     }
     return 1;
 }
