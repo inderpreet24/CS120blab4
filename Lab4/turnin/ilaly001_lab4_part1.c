@@ -12,52 +12,79 @@
 #include "simAVRHeader.h"
 #endif
     
-   enum LED{ Init, LED_ON, LED_OFF} led;
+   enum LED{ Init, LED_ONP,LED_ONR, LED_OFFP, LED_OFFR} led;
     void Button(){
        switch(led){
        case Init:
-       led = LED_OFF;
+       led = LED_ONP;
        
        break;
       
-       case LED_OFF:
-       if(PINA == 0x01){
-        led = LED_ON;
+       case LED_ONP:
+       if((PINA & 0x01)==0x01){
+        led = LED_ONP;
        }
        else{
-       led = LED_OFF;
+       led = LED_ONR;
      } 
      
      break;
        
-      case LED_ON:
-      if(PINA == 0x01){
-      led = LED_OFF;
+      case LED_ONR:
+      if((PINA & 0x01)== 0x01){
+      led = LED_OFFP;
      }
      else{
-     led = LED_ON;
+     led = LED_ONR;
     }   
     break;
-     
-     default:{
-      break;
+     case LED_OFFP:
+     if((PINA & 0x01) == 0x01){
+     led = LED_OFFP;
     }
+    else {
+     led = LED_OFFR;
+    } 
+    break;
+     
+     case LED_OFFR:
+     if((PINA & 0x01) == 0x01){
+      led = LED_ONR;
+     }
+     else {
+     led = LED_OFFR;
+    }
+     break;
+       
+     default:
+     led = Init;
+      break;
+    
 }
     switch(led){
     case Init:
-    { 
+    PORTB = 0x01; 
     break;
-    }
-    case LED_OFF:
+    
+    case LED_ONP:
     PORTB = 0x01;
     break;
-    case LED_ON:
+    
+    case LED_ONR:
+    break;
+    
+    case LED_OFFP:
     PORTB = 0x02;
     break;
-    default:
-   {
+    
+    case LED_OFFR:
     break;
-    }
+     
+    default:
+   
+   PORTB = 0x01;
+    break;
+   
 }
 }
 int main(void) {   
@@ -65,7 +92,7 @@ int main(void) {
     DDRA = 0x00; PORTA = 0xFF;
     DDRB = 0xFF; PORTB = 0x00;
     /* Insert your solution below */
-    led = Init;
+    
     while (1) {
    Button();          
     }
