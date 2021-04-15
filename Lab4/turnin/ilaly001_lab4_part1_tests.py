@@ -15,7 +15,7 @@
 # that they are not ran in isolation but in the order shown and the state of the device is not reset or 
 # altered in between executions (unless preconditions are used).
 tests = [ {'description': 'PINA: 0x01, 0x00 => PORTB: 0x02, led:LED_OFF',
-    'steps': [{'inputs': [('PINA', 0x01)], 'iterations': 1},
+    'steps': [{'inputs': [('PINA', 0x01)], 'iterations': 10}
         {'inputs': [('PINA', 0x00)], 'iterations': 1}],
     'expected': [('PORTB',0x02)],
     },

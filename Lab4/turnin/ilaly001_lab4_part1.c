@@ -71,6 +71,7 @@
     break;
     
     case LED_ONR:
+    PORTB = 0x01;
     break;
     
     case LED_OFFP:
