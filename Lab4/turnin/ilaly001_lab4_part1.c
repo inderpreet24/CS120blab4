@@ -31,6 +31,7 @@
      break;
        
       case LED_ONR:
+      PORTB = 0x01;
       if((PINA & 0x01)== 0x01){
       led = LED_OFFP;
      }
