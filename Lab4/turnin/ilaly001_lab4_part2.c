@@ -59,7 +59,52 @@
      break;
      
       case Restart:
-     
+    if(A1 && A0){
+      button = Restart;
+    }
+   else {
+   button = Stop; 
+     } 
+   break;
+
+  default:
+  button = Init;
+  break;
+}
+
+	switch(button){
+	case Init:
+        PORTC = 0x07;
+ 	break;
+	case Begin:
+        PORTC = 0x07;
+ 	break;
+ 	case Increment:
+        if(PORTC < 0x09){
+      	PORTC++;
+ 	}
+        else{
+        PORTC= 0x09;
+ 	}
+ 	break;
+	case Decrement:
+	if(PORTC > 0x00){
+     	PORTC--;
+        }
+ 	else{
+	PORTC = 0x09;
+        }
+ 	break;
+	case Stop:
+   	break;
+	case Restart:
+ 	PORTC=0x00;
+	break;
+	default:
+	PORTC = 0x07;
+	break;
+}
+}
 
 
 
@@ -72,7 +117,7 @@ int main(void) {
     /* Insert DDR and PORT initializations */ 
     DDRA=0x00; PORTA = 0xFF;
     DDRC = 0xFF; PORTC = 0x00;
-    button = init;   
+    button = Init;   
     /* Insert your solution below */
     while (1) {
      Start();
