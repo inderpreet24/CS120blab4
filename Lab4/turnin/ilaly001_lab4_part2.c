@@ -14,7 +14,7 @@
  
      enum Button { Init, Begin, Start,  Restart, Increment, Decrement, WaitI, WaitD} button;
       
-     void Start(){
+     void Origin(){
 
       switch(button){
       case Init:
@@ -126,7 +126,7 @@ int main(void) {
     DDRC = 0xFF; PORTC = 0x00;
     /* Insert your solution below */
     while (1) {
-     Start();
+     Origin();
     }
     return 1;
 }
