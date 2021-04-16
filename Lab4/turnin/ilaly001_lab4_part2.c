@@ -12,11 +12,9 @@
 #include "simAVRHeader.h"
 #endif
  
-	enum Button { Init, Begin, Increment, Decrement, Restart, Stop} button;
+     enum Button { Init, Begin, Start,  Restart, Increment, Decrement, WaitI, WaitD} button;
       
      void Start(){
-      unsigned char A0 = PINA & 0x01;
-      unsigned char A1 = PINA & 0x02;
 
       switch(button){
       case Init:
@@ -24,87 +22,96 @@
        break;
     
       case Begin:
-     if( A0 && !A1){
-        button = Increment;  
+      button = Start;
+      break;
+      
+      case Start:
+      if((PINA & 0x03) == 0x03) {
+       button = Restart;
+     }
+      else if ((PINA & 0x01)==0x01){
+      button = WaitI;
      } 
-     else if ( !A0 && A1){
-      button = Decrement;
+     else if ((PINA & 0x02) == 0x02){
+       button = WaitD;
+     } 
+     break;
+     case Restart:
+     if((PINA & 0x03) == 0x03) {
+       button = Restart;
      }
-     else if (A0 && A1) {
-      button = Restart;
-     }
-     else {
-     button = Stop;
+    else {
+    button = Start;
     }
     break;
+    
+   case Increment:
+     if ((PINA & 0x01)==0x01){
+      button = Increment;
+     }
+      else{
+    button = Start;
+     }
+    break;
+    
+    case WaitI:
+    button = Increment;
+    break;
+   
+    case Decrement:
+     if ((PINA & 0x02) == 0x02){
+       button = Decrement;
+     }
+     else {
+     button = Start;     
 
-     case Increment:
-      button = Stop;
+}    
+     break;
+ 
+     case WaitD:
+      button = Decrement;
+     break;
+   
+      default:
+      button = Init;
       break;
-  
-     case Decrement:
-     button = Stop;
-     break;
-     
-     case Stop:
-     if( A1 && A0) {
-      button = Restart;
-     }
-    else if(!A1 && !A0) {
-     button = Begin;
-     }
-     else{
-     button = Stop;
-   }
-     break;
-     
-      case Restart:
-    if(A1 && A0){
-      button = Restart;
-    }
-   else {
-   button = Stop; 
-     } 
-   break;
 
-  default:
-  button = Init;
-  break;
 }
-
-	switch(button){
+  	switch(button){
 	case Init:
         PORTC = 0x07;
- 	break;
-	case Begin:
+        break;
+        case Begin:
         PORTC = 0x07;
- 	break;
- 	case Increment:
-        if(PORTC < 0x09){
-      	PORTC++;
- 	}
-        else{
-        PORTC= 0x09;
- 	}
- 	break;
-	case Decrement:
-	if(PORTC > 0x00){
-     	PORTC--;
-        }
- 	else{
-	PORTC = 0x09;
-        }
- 	break;
-	case Stop:
-   	break;
-	case Restart:
- 	PORTC=0x00;
-	break;
-	default:
-	PORTC = 0x07;
-	break;
+        break;
+        case Start:
+        break;
+        case Increment:
+        break;
+        case Decrement:
+        break;
+        case WaitI:
+        if( PORTC < 0x09) {
+        PORTC = PORTC + 1;
+       }
+       break;
+       case WaitD:
+       if(PORTC > 0x00) {
+       PORTC = PORTC - 1;
+       }
+       break;
+       case Restart:
+       PORTC = 0x00;
+       break;
+       default:
+       PORTC = 0x07;
+       break;
+	}
 }
-}
+
+
+
+
 
 
 
@@ -117,7 +124,6 @@ int main(void) {
     /* Insert DDR and PORT initializations */ 
     DDRA=0x00; PORTA = 0xFF;
     DDRC = 0xFF; PORTC = 0x00;
-    button = Init;   
     /* Insert your solution below */
     while (1) {
      Start();
