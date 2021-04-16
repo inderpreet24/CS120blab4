@@ -20,7 +20,7 @@
 
       switch(button){
       case Init:
-       button = begin;
+       button = Begin;
        break;
     
       case Begin:
