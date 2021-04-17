@@ -26,52 +26,81 @@
       break;
       
       case Start:
-      if((PINA & 0x03) == 0x03) {
+      if(PINA == 0x03) {
        button = Restart;
      }
-      else if ((PINA & 0x01)==0x01){
-      button = WaitI;
+      else if (PINA ==0x02){
+      button = Decrement;
      } 
-     else if ((PINA & 0x02) == 0x02){
-       button = WaitD;
-     } 
+     else if (PINA== 0x01){
+       button = Increment;
+     }
+     else{
+     button = Start;
+      } 
      break;
+     
      case Restart:
-     if((PINA & 0x03) == 0x03) {
-       button = Restart;
-     }
-    else {
-    button = Start;
-    }
+     button = Start;
     break;
     
    case Increment:
-     if ((PINA & 0x01)==0x01){
-      button = Increment;
+     if (PINA == 0x03){
+      button = Restart;
      }
-      else{
-    button = Start;
+      else if(PINA == 0x00) {
+    button = Restart;
      }
+     else{
+      button = Start;
+      }
+      
     break;
     
     case WaitI:
-    button = Increment;
+    if(PINA == 0x03){
+     button = Restart;
+      }
+    else if(PINA == 0x02){
+    button = Decrement;
+   }
+    else{
+    button = Start;
+      }
+      
     break;
    
     case Decrement:
-     if ((PINA & 0x02) == 0x02){
-       button = Decrement;
+     if (PINA == 0x03){
+       button = Restart;
      }
-     else {
+     else if(PINA == 0x00) {
      button = Start;     
-
-}    
+      }
+     else{
+     button = WaitD;
+      }    
      break;
  
      case WaitD:
-      button = Decrement;
+      if(PINA == 0x03){
+      button = Restart;
+      }
+      else if(PINA == 0x02){
+      button = WaitD;
+      } 
+      else if(PINA== 0x01){
+       button = Increment;
+       }
+       else{
+       button = Start;
+      }
+    
      break;
-   
+    case Restart:
+      button = Start;
+      break;
+    
       default:
       button = Init;
       break;
@@ -79,7 +108,6 @@
 }
   	switch(button){
 	case Init:
-        PORTC = 0x07;
         break;
         case Begin:
         PORTC = 0x07;
@@ -87,18 +115,18 @@
         case Start:
         break;
         case Increment:
-        break;
-        case Decrement:
-        break;
-        case WaitI:
         if( PORTC < 0x09) {
         PORTC = PORTC + 1;
        }
-       break;
-       case WaitD:
-       if(PORTC > 0x00) {
+        break;
+        case Decrement:
+	 if(PORTC > 0x00) {
        PORTC = PORTC - 1;
        }
+        break;
+        case WaitI:
+       break;
+       case WaitD:
        break;
        case Restart:
        PORTC = 0x00;
@@ -125,6 +153,8 @@ int main(void) {
     DDRA=0x00; PORTA = 0xFF;
     DDRC = 0xFF; PORTC = 0x00;
     /* Insert your solution below */
+    button = Init;
+    PORTC = 0x07;
     while (1) {
      Origin();
     }
