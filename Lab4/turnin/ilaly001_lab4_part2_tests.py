@@ -1,4 +1,8 @@
-# Array of tests to run (in order)
+# Arracription': 'PINA: 0x02 => PORTC: 0x08, button:Stop',
+    'steps': [{'inputs': [('PINA', 0x02)], 'iterations': 2}],
+    'expected': [('PORTB',0x08)],
+    },
+ of tests to run (in order)
 # Each test contains
 #   description - 
 #   steps - A list of steps to perform, each step can have
@@ -19,10 +23,15 @@ tests = [ {'set state to Start': 'PINA 0x00 => PORTC:0x07, button: Stop',
         {'inputs': [('PINA', 0x00)], 'iterations': 1}],
     'expected': [('PORTC',0x07)],
     },
- {'description': 'PINA: 0x02 => PORTC: 0x08, button:Stop',
-    'steps': [{'inputs': [('PINA', 0x02)], 'iterations': 2}],
-    'expected': [('PORTB',0x08)],
+ {'description': 'PINA: 0x01, 0x00 => PORTC: 0x08, button: Incrment',
+    'steps': [{'inputs': [('PINA', 0x01)], 'iterations': 10}],
+	 [{'inputs': [('PINA', 0x00)], 'iterations': 10}]
+    'expected': [('PORTC',0x08)],
     },
+{'description': 'PINA: 0x02, 0x00 0x01 => PORTC: 0x07, button:Decrement',
+    'steps': [{'inputs': [('PINA', 0x02)], 'iterations': 6}],
+    'expected': [('PORTC',0x06)],
+    }
 
     ]
 watch = ['state','cntA0']

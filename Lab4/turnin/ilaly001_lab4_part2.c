@@ -40,9 +40,6 @@
       } 
      break;
      
-     case Restart:
-     button = Start;
-    break;
     
    case Increment:
      if (PINA == 0x03){
