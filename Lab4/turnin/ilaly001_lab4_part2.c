@@ -46,10 +46,10 @@
       button = Restart;
      }
       else if(PINA == 0x00) {
-    button = Restart;
+    button = Start;
      }
      else{
-      button = Start;
+      button = WaitI;
       }
       
     break;
@@ -60,6 +60,9 @@
       }
     else if(PINA == 0x02){
     button = Decrement;
+   }
+   else if (PINA == 0x01) {
+    button = WaitI;
    }
     else{
     button = Start;
@@ -86,7 +89,7 @@
       else if(PINA == 0x02){
       button = WaitD;
       } 
-      else if(PINA== 0x01){
+      else if(PINA == 0x01){
        button = Increment;
        }
        else{
@@ -108,7 +111,6 @@
         break;
         case Begin:
         PORTC = 0x07;
-        break;
         case Start:
         break;
         case Increment:
@@ -121,7 +123,7 @@
        PORTC = PORTC - 1;
        }
         break;
-        case WaitI:
+       case WaitI:
        break;
        case WaitD:
        break;
