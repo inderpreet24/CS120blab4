@@ -85,6 +85,7 @@ int main(void) {
 	DDRA = 0x00; PINA = 0xFF;
  	DDRB = 0xFF; PORTB = 0x00;
     /* Insert your solution below */
+    button = Init;
     while (1) {
     Lock();
     }
