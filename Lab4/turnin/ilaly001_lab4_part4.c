@@ -120,7 +120,9 @@ PORTB = 0x01;
 break;
 
 case PRESSY:
-
+if(PORTB == 0x01){
+button = LOCKED;
+}
 break;
 
 case RELEASEP:
