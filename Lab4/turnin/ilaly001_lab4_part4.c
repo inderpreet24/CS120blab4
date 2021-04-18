@@ -72,7 +72,7 @@ case PRESSY:
 if(PINA == 0x02){
 button = PRESSY;
 }
-else if(PINA == 0x00){
+if(PINA == 0x00){
 if(PORTB == 0x01){
  button = LOCKED;
 }
