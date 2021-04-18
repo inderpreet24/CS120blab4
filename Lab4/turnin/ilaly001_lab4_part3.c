@@ -33,7 +33,7 @@ break;
 
 case UNLOCKEDX:
 if(PINA == 0x80){
- button = LOCKED
+ button = LOCKED;
 }
 else if((PINA != 0x04) && (PINA != 0x1) && (PINA == 0x02)){
 button = UNLOCKEDY;
@@ -48,7 +48,7 @@ if(PINA == 0x80){
 button = LOCKED;
 }
 else{
-button = UNLOCKEY;
+button = UNLOCKEDY;
 }
 break;
 
@@ -60,7 +60,7 @@ switch(button){
 case Init:
 break;
 
-case Locked:
+case LOCKED:
 PORTB = 0x00;
 break;
 
