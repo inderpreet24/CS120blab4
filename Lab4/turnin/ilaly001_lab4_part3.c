@@ -146,6 +146,7 @@ int main(void) {
  	DDRB = 0xFF; PORTB = 0x00;
     /* Insert your solution below */
     button = Init;
+    PORTB = 0x00;
     while (1) {
     Lock();
     }
