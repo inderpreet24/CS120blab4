@@ -11,15 +11,15 @@
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
-enum Button{Init, LOCKED, UNLOCKEDX, UNLOCKEDY, UNLOCKEDDoor, RELEASEP, PRESSY } button;
+enum Button{Init, Door, LOCKED,  UNLOCKEDX, UNLOCKEDY, UNLOCKEDDoor, RELEASEP, PRESSY } button;
 void Lock(){
 switch(button){
 
 case Init:
-button = LOCKED;
+button = Door;
 break;
 
-case LOCKED:
+case Door:
 if(PINA == 0x80){
 button = LOCKED;
 }
@@ -27,9 +27,14 @@ else if ((PINA == 0x04) && (PINA != 0x01) && (PINA != 0x02)){
   button = RELEASEP;
 }
 else{
-button = LOCKED;
+button = Door;
 }
 break;
+
+case LOCKED:
+button = Init;
+break;
+
 
 case UNLOCKEDX:
 if(PINA == 0x80){
@@ -39,7 +44,7 @@ else if((PINA != 0x04) && (PINA != 0x01) && (PINA == 0x02)){
 button = UNLOCKEDY;
 }
 else{
-button = LOCKED;
+button = Door;
 }
 break;
 
@@ -117,6 +122,9 @@ case PRESSY:
 break;
 
 case RELEASEP:
+break;
+
+case Door:
 break;
 
 case UNLOCKEDY:
