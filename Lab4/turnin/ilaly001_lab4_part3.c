@@ -50,7 +50,9 @@ button = LOCKED;
 else if ((PINA == 0x04) && (PINA != 0x01) && (PINA == 0x02)){
 button = UNLOCKEDY;
 }
-
+else{
+button = Init;
+}
 break;
 
 default:
