@@ -71,6 +71,7 @@ break;
 case PRESSY:
 if(PINA == 0x00){
 button = UNLOCKEDDoor;
+}
 else if(PINA == 0x01){
 button = LOCKED;
 }
