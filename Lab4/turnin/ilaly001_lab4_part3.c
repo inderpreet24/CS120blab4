@@ -11,7 +11,7 @@
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #endif
-enum Button{Init, LOCKED, UNLOCKEDX, UNLOCKEDY } button;
+enum Button{Init, LOCKED, UNLOCKEDX, UNLOCKEDY, UNLOCKEDDoor, RELEASEP, PRESSY } button;
 void Lock(){
 switch(button){
 
@@ -24,7 +24,7 @@ if(PINA == 0x80){
 button = LOCKED;
 }
 else if ((PINA == 0x04) && (PINA != 0x01) && (PINA != 0x02)){
-  button = UNLOCKEDX;
+  button = RELEASEP;
 }
 else{
 button = LOCKED;
@@ -48,12 +48,50 @@ if(PINA == 0x80){
 button = LOCKED;
 }
 else if ((PINA == 0x04) && (PINA != 0x01) && (PINA == 0x02)){
-button = UNLOCKEDY;
+button = UNLOCKEDDoor;
 }
 else{
 button = Init;
 }
 break;
+
+case UNLOCKEDDoor:
+button = Init;
+break;
+
+
+
+
+
+case PRESSY:
+if(PINA == 0x00){
+button = UNLOCKEDDoor;
+}
+else if(PINA == 0x02){
+button = PRESSY;
+}
+else{
+button = Init;
+}
+break;
+
+
+
+
+case RELEASEP:
+if(PINA == 0x02){
+button = RELEASEP;
+}
+else if(PINA == 0x01) {
+button = PRESSY;
+}
+else{
+button = Init;
+}
+break; 
+
+
+
 
 default:
 button = Init;
@@ -70,8 +108,19 @@ break;
 case UNLOCKEDX:
 break;
 
-case UNLOCKEDY:
+case UNLOCKEDDoor:
 PORTB = 0x01;
+break;
+
+case PRESSY:
+
+break;
+
+case RELEASEP:
+break;
+
+case UNLOCKEDY:
+//PORTB = 0x01;
 break;
 default:
 break;
