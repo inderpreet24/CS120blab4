@@ -69,18 +69,33 @@ break;
 
 
 case PRESSY:
-if(PINA == 0x00){
-if(PORTB == 0x01){
-button = LOCKED;
+if(PINA == 0x02){
+button = PRESSY;
 }
-//else if(PINA == 0x02){
-//button = PRESSY;
-//}
+else if(PINA == 0x00){
+if(PORT B == 0x01){
+ button = LOCKED;
+}
 else{
 button = UNLOCKEDDoor;
 }
 }
+else{
+button = Init;
+}
 break;
+//if(PINA == 0x00){
+//button = UNLOCKEDDoor;
+//if(PORTB == 0x01){
+//button = LOCKED;
+//}
+//else if(PINA == 0x02){
+//button = PRESSY;
+//}
+//else{
+//button = Init;
+//}
+//}
 
 
 
