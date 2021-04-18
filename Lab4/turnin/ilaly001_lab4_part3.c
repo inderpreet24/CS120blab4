@@ -72,7 +72,7 @@ case PRESSY:
 if(PINA == 0x02){
 button = PRESSY;
 }
-else if(PINA = 0x00){
+else if(PINA == 0x00){
 button = UNLOCKEDDoor;
 }
 else{
