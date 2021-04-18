@@ -35,7 +35,7 @@ case UNLOCKEDX:
 if(PINA == 0x80){
  button = LOCKED;
 }
-else if((PINA != 0x04) && (PINA != 0x1) && (PINA == 0x02)){
+else if((PINA != 0x04) && (PINA != 0x01) && (PINA == 0x02)){
 button = UNLOCKEDY;
 }
 else{
@@ -47,9 +47,10 @@ case UNLOCKEDY:
 if(PINA == 0x80){
 button = LOCKED;
 }
-else{
+else if ((PINA == 0x04) && (PINA != 0x01) && (PINA == 0x02)){
 button = UNLOCKEDY;
 }
+
 break;
 
 default:
