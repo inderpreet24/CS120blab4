@@ -70,7 +70,7 @@ break;
 
 case PRESSY:
 if(PINA == 0x00){
-if(PINB == 0x01){
+if(PORTB == 0x01){
 button = LOCKED;
 }
 //else if(PINA == 0x02){
