@@ -69,11 +69,11 @@ break;
 
 
 case PRESSY:
-if(PINA == 0x00){
-button = UNLOCKEDDoor;
-}
-else if(PINA == 0x02){
+if(PINA == 0x02){
 button = PRESSY;
+}
+else if(PINA = 0x00){
+button = UNLOCKEDDoor;
 }
 else{
 button = Init;
@@ -84,10 +84,10 @@ break;
 
 
 case RELEASEP:
-if(PINA == 0x02){
+if(PINA == 0x04){
 button = RELEASEP;
 }
-else if(PINA == 0x01) {
+else if(PINA == 0x00) {
 button = PRESSY;
 }
 else{

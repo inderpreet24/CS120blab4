@@ -25,7 +25,15 @@ tests = [ {'set state to Init': 'PINA 0x00, 0x04, 0x08  => PORTB:0x00, button: L
         {'inputs': [('PINA', 0x00)], 'iterations': 1}],
         {'inputs': [('PINA', 0x08)], 'iterations': 1}
     'expected': [('PORTB',0x02)]
+    },
+   {'set state to UNLOCKEDY': 'PINA 0x04, 0x00, 0x02, 0x00  => PORTB:0x01, button: UNLOCKEDY',
+    'steps': [{'inputs': [('PINA', 0x04)], 'iterations': 5},
+        {'inputs': [('PINA', 0x00)], 'iterations': 5},
+        {'inputs': [('PINA', 0x02)], 'iterations': 5},
+	{'inputs': [('PINA', 0x00)], 'iterations': 5}],
+    'expected': [('PORTB',0x01)]
     }
+
  ]
 
 watch = ['state','cntA0']
